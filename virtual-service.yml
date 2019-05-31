@@ -1,0 +1,39 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: apple-fruits-edge
+  namespace: fruits
+spec:
+  hosts:
+    - "sub1.example.com"
+  gateways:
+    - fruits-gateway
+  http:
+    - match:
+        - uri:
+            exact: /
+      route:
+        - destination:
+            host: apple-service
+            port:
+              number: 5678
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: banana-fruits-edge
+  namespace: fruits
+spec:
+  hosts:
+    - "sub2.example.com"
+  gateways:
+    - fruits-gateway
+  http:
+    - match:
+        - uri:
+            exact: /
+      route:
+        - destination:
+            host: banana-service
+            port:
+              number: 5678
